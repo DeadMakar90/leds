@@ -1,2 +1,6 @@
 .vscode/arduino.json
 .vscode/c_cpp_properties.json
+led_v1.0/.vscode/arduino.json
+led_v1.0/.vscode/c_cpp_properties.json
+led_v1.2/.vscode/c_cpp_properties.json
+led_v1.2/.vscode/arduino.json
