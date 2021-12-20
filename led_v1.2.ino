@@ -41,6 +41,12 @@ case 1:
     }
     break;
 case 2: 
+     leds[0] = CRGB::GreenYellow;
+     FastLED.show();
+     delay(1000);
+     leds[1] = CRGB::Indigo;
+     FastLED.show();
+     delay(100);
 default:
     break;
 }
