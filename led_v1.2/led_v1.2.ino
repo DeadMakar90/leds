@@ -1,4 +1,7 @@
+#include <AnalogKey.h>
+#include <GyverButton.h>
 #include <FastLED.h>
+
 
 #define NUM_LEDS 30  //Количество диодов в ленте
 #define DATA_PIN 3   //Пин управления
@@ -8,9 +11,10 @@
 int mode = 0;
 boolean buttonWasUp = true;
 CRGB leds[NUM_LEDS];  //Массив с размером = количеству диодов
+GButton butt1(BUTTON);
 
 void setup(){
-pinMode(BUTTON,INPUT_PULLUP);
+butt1.setDebounce(90);  
 FastLED.addLeds<CHIPSET,DATA_PIN,COLOR_ORDER>(leds,NUM_LEDS); 
 FastLED.clear();
 FastLED.show();
@@ -18,13 +22,10 @@ FastLED.show();
 }
 
 void loop(){ 
-
-if (buttonWasUp && !digitalRead(BUTTON)) {
-    delay(10);
-    if (!digitalRead(BUTTON))
-      mode = (mode + 1);
-
-switch (mode)
+butt1.tick(); 
+if (butt1.isClick()&& mode < 2) {           // одиночное нажатие
+  mode++;                       // инкремент
+  switch (mode)
 {
 case 1:
     for (int i = 0; i < NUM_LEDS; i++)
@@ -50,6 +51,6 @@ case 2:
      break;
 default:
     break;
-  }
- }
+}
+}
 }
