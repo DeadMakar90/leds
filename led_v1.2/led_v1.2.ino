@@ -8,7 +8,7 @@
 #define COLOR_ORDER GRB //Цветовая схема ленты.
 #define CHIPSET WS2813 //Модель диодов
 #define BUTTON 5
-int mode = 0;
+//int mode = 0;
 CRGB leds[NUM_LEDS];  //Массив с размером = количеству диодов
 GButton butt1(BUTTON);
 
@@ -22,11 +22,9 @@ FastLED.show();
 
 void loop(){ 
 butt1.tick(); 
-if (butt1.isClick()){
-  if(++mode >= 3){
-    mode=0;
-  }
-}
+if (butt1.hasClicks()){
+byte mode = butt1.getClicks();
+if (mode >=3){mode=0;}
 switch(mode){
 case 1:
     for (int i = 0; i < NUM_LEDS; i++)
@@ -54,3 +52,4 @@ default:
     break;
   }
  }
+}
