@@ -22,7 +22,7 @@ void loop(){
 if (buttonWasUp && !digitalRead(BUTTON)) {
     delay(10);
     if (!digitalRead(BUTTON))
-      mode = (mode + 1) % 10;
+      mode = (mode + 1);
 
 switch (mode)
 {
