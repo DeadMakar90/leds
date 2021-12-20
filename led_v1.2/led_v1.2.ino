@@ -17,14 +17,12 @@ FastLED.addLeds<CHIPSET,DATA_PIN,COLOR_ORDER>(leds,NUM_LEDS);
 FastLED.clear();
 FastLED.show();
 }
-void pin_ISR(){
-    mode++;
-    if (mode >=3){
-        mode = 0;
-    }
-}
 
 void loop(){ 
+    if(butt1.isPress()){
+        ++mode;
+        if(mode>=4) mode=0;
+    }
     switch(mode){
         case 1: 
         for ( int i = 0; i < NUM_LEDS; i++)
