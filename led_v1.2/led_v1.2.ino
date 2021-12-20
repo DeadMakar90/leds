@@ -9,7 +9,6 @@
 #define CHIPSET WS2813 //Модель диодов
 #define BUTTON 5
 int mode = 0;
-boolean buttonWasUp = true;
 CRGB leds[NUM_LEDS];  //Массив с размером = количеству диодов
 GButton butt1(BUTTON);
 
@@ -23,10 +22,12 @@ FastLED.show();
 
 void loop(){ 
 butt1.tick(); 
-if (butt1.isClick()&& mode < 2) {           // одиночное нажатие
-  mode++;                       // инкремент
-  switch (mode)
-{
+if (butt1.isClick()){
+  if(++mode >= 3){
+    mode=0;
+  }
+}
+switch(mode){
 case 1:
     for (int i = 0; i < NUM_LEDS; i++)
     {
@@ -51,6 +52,5 @@ case 2:
      break;
 default:
     break;
-}
-}
-}
+  }
+ }
