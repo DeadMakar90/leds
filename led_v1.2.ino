@@ -47,8 +47,9 @@ case 2:
      leds[1] = CRGB::Indigo;
      FastLED.show();
      delay(100);
+     break;
 default:
     break;
-}
-}
+  }
+ }
 }
