@@ -6,23 +6,36 @@
 #define DATA_PIN 3   //Пин управления
 #define COLOR_ORDER GRB //Цветовая схема ленты.
 #define CHIPSET WS2813 //Модель диодов
-#define BUTTON 5
-int mode = 0;
+#define BUTTON 5       //Пин кнопки
+byte mode = 1;         //Режим
 CRGB leds[NUM_LEDS];  //Массив с размером = количеству диодов
-GButton butt1(BUTTON);
+//static byte tempButton = LOW;
+//static byte button = LOW;
 
 void setup(){
-butt1.setDebounce(90);  
+pinMode(BUTTON, INPUT); 
 FastLED.addLeds<CHIPSET,DATA_PIN,COLOR_ORDER>(leds,NUM_LEDS); 
 FastLED.clear();
 FastLED.show();
 }
 
-void loop(){ 
-    if(butt1.isPress()){
-        ++mode;
-        if(mode>=4) mode=0;
+void loop(){
+
+  button = digitalRead(BUTTON);
+  if (tempButton && !button)
+  {
+  // Небольшой анти дребезг.
+    tempButton = button;
+    delay(10);
+    button = digitalRead(BUTTON);
+    // Все хорошо, меняем эффект.
+    if (button == tempButton)
+    {
+      // Переключаем на следующий эффект.
+      mode++;
+      if (mode > 3) mode = 1; // Зацикливаем эффекты по кругу.
     }
+    //tempButton = button;
     switch(mode){
         case 1: 
         for ( int i = 0; i < NUM_LEDS; i++)
